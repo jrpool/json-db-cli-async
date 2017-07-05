@@ -5,17 +5,16 @@
 */
 
 // Import the “add” function from the add module.
-const add = module.require('../commands/add').add;
+const add = module.require('./commands/add').add;
 
 // Import the “done” function from the done module.
-const done = module.require('../commands/done').done;
+const done = module.require('./commands/done').done;
 
 // Import the “list” function from the list module.
-const list = module.require('../commands/list').list
-;
+const list = module.require('./commands/list').list;
 
 // Import the “messages” object from the messages module.
-const messages = module.require('./messages').messages;
+const messages = module.require('./src/messages').messages;
 
 // Identify the base of the name of the JSON file containing the list.
 const listFile = 'tasks';

@@ -8,13 +8,13 @@ Application using a JSON file as a database and a CLI to query and modify it
 ## modules
 
 ```
+- task.js
 commands
--  add.js
--  done.js
--  list.js
+- add.js
+- done.js
+- list.js
 src
--  messages.js
--  task.js
+- messages.js
 ```
 
 ## Discussion
@@ -88,6 +88,10 @@ Make the `src` directory your working directory by executing:
     `cd src`
 
 Enter `node task help` for usage examples. Then enter any command based on any of the examples. Any command that begins with `node task` should produce a response that describes either the successful execution of your command or an error.
+
+To perform linting, execute `npm run lint`.
+
+To perform the supplied tests, execute `npm test`.
 
 [lg]: https://www.learnersguild.org
 [npm]: https://www.npmjs.com/

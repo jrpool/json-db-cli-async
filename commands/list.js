@@ -6,7 +6,10 @@ const fs = require('fs');
 // Import the “cli-table2” module.
 const Table = require('cli-table2');
 
-// Import the “messages” object from the messages module.
+/*
+  Import the “messages” object from the messages module. (With module.require,
+  a relative path is relative to this file.)
+*/
 const messages = module.require('../src/messages').messages;
 
 /*
@@ -20,8 +23,11 @@ const messages = module.require('../src/messages').messages;
 */
 exports.list = (fileBase, resultAction) => {
   // Identify the file pathname.
-  const filePath = '../data/' + fileBase + '.json';
-  // Read the file as UTF-8.
+  const filePath = './data/' + fileBase + '.json';
+  /*
+    Read the file as UTF-8. (With fs, a relative path is relative to
+    process.cwd().)
+  */
   fs.readFile(
     filePath,
     'utf8',
@@ -48,16 +54,15 @@ exports.list = (fileBase, resultAction) => {
         itemIDs.sort((a, b) => a - b);
         // For each of them, add a row to the table.
         itemIDs.forEach(currentValue => {
-          table.push([currentValue, listObject[currentValue]])
+          table.push([currentValue, listObject[currentValue]]);
         });
         // Act on the table.
         resultAction(
           table.toString() + '\n' + (
-            itemIDs.length === 1
-            ? messages.listSumReport1
-            : messages.listSumReport2.replace(
-              /«itemIDs.length»/, itemIDs.length
-            )
+            itemIDs.length === 1 ? messages.listSumReport1
+              : messages.listSumReport2.replace(
+                /«itemIDs.length»/, itemIDs.length
+              )
           )
         );
       }

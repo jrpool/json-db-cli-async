@@ -22,7 +22,7 @@ const messages = module.require('../src/messages').messages;
 */
 exports.add = (fileBase, itemText, resultAction) => {
   // Identify the file pathname.
-  const filePath = '../data/' + fileBase + '.json';
+  const filePath = './data/' + fileBase + '.json';
   // Add the specified item to the file, namely:
   // Read the file as UTF-8.
   fs.readFile(

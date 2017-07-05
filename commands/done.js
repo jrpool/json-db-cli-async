@@ -18,7 +18,7 @@ const messages = module.require('../src/messages').messages;
 */
 exports.done = (fileBase, itemIDs, resultAction) => {
   // Identify the file pathname.
-  const filePath = '../data/' + fileBase + '.json';
+  const filePath = './data/' + fileBase + '.json';
   // Read the file as UTF-8.
   fs.readFile(
     filePath,
