@@ -23,7 +23,9 @@ src
 
 This application demonstrates the use of a JSON-format text file as a database and the use of Node.js’s Filesystem module to read and revise that file in response to commands issued from the command line.
 
-The application fulfills the specifications of the “Command line Todo List With Callbacks” module in Phase 2 of the Learners Guild curriculum.
+The demonstration takes the form of a to-do list manager. You can use it to add tasks to the list, remove tasks from it (declaring them “done”), and list the tasks in it.
+
+The application fulfills the specifications of the “Command line Todo List With Callbacks” module in Phase 2 of the (Learners Guild)[lg] curriculum.
 
 The features are somewhat enhanced in relation to these specifications, as follows:
 
@@ -87,4 +89,5 @@ Make the `src` directory your working directory by executing:
 
 Enter `node task help` for usage examples. Then enter any command based on any of the examples. Any command that begins with `node task` should produce a response that describes either the successful execution of your command or an error.
 
+[lg]: https://www.learnersguild.org
 [npm]: https://www.npmjs.com/

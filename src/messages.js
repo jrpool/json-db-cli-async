@@ -13,5 +13,5 @@ exports.messages = {
   'listCol1Head': 'Description',
   'listSumReport': '«table.length» tasks.',
   'commandFail': 'The command was unsuccessful because of a format error.',
-  'helpTip': 'Examples of valid commands:\nnode task help\nnode task list\nnode task add \'Study calculus\'\nnode task done 4\nnode task done 13-18'
+  'helpTip': 'This application manages a simple to-do list. You can add tasks to it, remove tasks from it (declaring them “done”), and list the tasks in it. Examples of valid commands:\nnode task help\nnode task list\nnode task add \'Study calculus\'\nnode task done 4\nnode task done 13-18'
 };
