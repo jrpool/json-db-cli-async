@@ -25,7 +25,7 @@ This application demonstrates the use of a JSON-format text file as a database a
 
 The demonstration takes the form of a to-do list manager. You can use it to add tasks to the list, remove tasks from it (declaring them “done”), and list the tasks in it.
 
-The application fulfills the specifications of the “Command line Todo List With Callbacks” module in Phase 2 of the (Learners Guild)[lg] curriculum.
+The application fulfills the specifications of the “Command line Todo List With Callbacks” module in Phase 2 of the [Learners Guild][lg] curriculum.
 
 The features are somewhat enhanced in relation to these specifications, as follows:
 
