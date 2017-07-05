@@ -59,11 +59,17 @@ Another possible extension of this application would include a command to revise
 
 0. These instructions presuppose that [npm][npm] is installed.
 
-1. Make the parent directory of what will be the project’s directory your working directory.
+1. Your copy of this project will be located in its own directory, inside some other directory that you may choose or create. For example, to create that parent directory inside your own home directory’s `Documents` subdirectory and call it `projects`, you can execute:
 
-2. Clone this repository into it, thereby creating the project directory, by executing:
+    `mkdir ~/Documents/projects`
 
-    `git clone git@github.com:jrpool/async-timer-demos.git async-timer-demos`
+Make that parent directory your working directory, by executing, for example:
+
+    `cd ~/Documents/projects`
+
+2. Clone this project’s repository into it, thereby creating the project directory, named `json-db-cli`, by executing:
+
+    `git clone git@github.com:jrpool/json-db-cli.git json-db-cli`
 
 2. Make the project directory your working directory by executing:
 
