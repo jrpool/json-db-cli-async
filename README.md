@@ -75,7 +75,7 @@ Make that parent directory your working directory, by executing, for example:
 
     `cd json-db-cli`
 
-3. Install required dependencies (see `package.json`) by executing:
+3. Install required dependencies (you can see them listed in `package.json`) by executing:
 
     `npm i`
 
