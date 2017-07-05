@@ -69,7 +69,7 @@ Make that parent directory your working directory, by executing, for example:
 
 2. Clone this project’s repository into it, thereby creating the project directory, named `json-db-cli`, by executing:
 
-    `git clone git@github.com:jrpool/json-db-cli.git json-db-cli`
+    `git clone https://github.com/jrpool/json-db-cli.git json-db-cli`
 
 2. Make the project directory your working directory by executing:
 
