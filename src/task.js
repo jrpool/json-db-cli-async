@@ -4,9 +4,6 @@
   arguments. Called by Node.js.
 */
 
-// Import the “fs” module.
-const fs = require('fs');
-
 // Import the “add” function from the add module.
 const add = module.require('../commands/add').add;
 

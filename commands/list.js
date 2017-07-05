@@ -47,11 +47,18 @@ exports.list = (fileBase, resultAction) => {
         // Sort them.
         itemIDs.sort((a, b) => a - b);
         // For each of them, add a row to the table.
-        itemIDs.forEach((currentValue) => table.push([currentValue, listObject[currentValue]]));
+        itemIDs.forEach(currentValue => {
+          table.push([currentValue, listObject[currentValue]])
+        });
         // Act on the table.
         resultAction(
-          table.toString() + '\n'
-          + messages.listSumReport.replace(/«table.length»/, table.length)
+          table.toString() + '\n' + (
+            itemIDs.length === 1
+            ? messages.listSumReport1
+            : messages.listSumReport2.replace(
+              /«itemIDs.length»/, itemIDs.length
+            )
+          )
         );
       }
     }
