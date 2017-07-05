@@ -5,7 +5,9 @@
   "license": "MIT",
   "private": false,
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "cli-table2": ">=0.2.0"
+  },
   "devDependencies": {
     "babel-register": ">=6.24.1",
     "chai": ">=4.0.2",
