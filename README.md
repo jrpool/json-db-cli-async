@@ -31,6 +31,8 @@ The features are somewhat enhanced in relation to these specifications, as follo
 
 - A `help` command causes a document describing the possible commands to be output.
 
+- The `done` command produces a report showing not only the description of the completed task, but also its ID. In the event that `done` has a range argument, and multiple tasks in the range have identical descriptions, a report needs to include IDs in order to positively identify the removed tasks.
+
 ### Implementation Notes
 
 The implementation aims at:

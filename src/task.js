@@ -53,8 +53,8 @@ if (args[0] !== undefined) {
     // If they are both valid:
     if (
       itemIDs.length > 0 && itemIDs.length < 3
-      && (itemIDs[0] = Number.parseInt(itemIDs[0])) !== NaN
-      && (itemIDs[1] = Number.parseInt(itemIDs[1])) !== NaN
+      && Number.isInteger(itemIDs[0] = Number.parseInt(itemIDs[0]))
+      && Number.isInteger(itemIDs[1] = Number.parseInt(itemIDs[1]))
       && itemIDs[0] > 0
       && itemIDs[1] >= itemIDs[0]
     ) {
