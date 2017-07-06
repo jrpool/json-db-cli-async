@@ -83,10 +83,6 @@ Make that parent directory your working directory, by executing, for example:
 
 ## Usage and Examples
 
-Make the `src` directory your working directory by executing:
-
-    `cd src`
-
 Enter `node task help` for usage examples. Then enter any command based on any of the examples. Any command that begins with `node task` should produce a response that describes either the successful execution of your command or an error.
 
 To perform linting, execute `npm run lint`.
