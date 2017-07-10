@@ -11,6 +11,7 @@ describe('task', function() {
       const response = execSync(
         'node task add \'test the add module\''
       ).toString();
+      // EXPECT RESPONSE TO MATCH(/.../)
       expect(/^Created task \d+\./.test(response)).true;
       // Identify the ID of the just-added task.
       thisID = response.replace(/[^\d]+/g, '');
@@ -29,14 +30,15 @@ describe('task', function() {
       const response = execSync(
         'node task list'
       ).toString();
-      expect(/^.+ID.+Description.+\d+ tasks?\..*\n$/.test(response).true);
+      console.log('The response is ' + response);
+      expect(/^.+ID.+Description.+\d+ tasks?\..*\n$/.test(response)).true;
     });
 
     it('help command gets answer in correct format', function() {
       const response = execSync(
         'node task help'
       ).toString();
-      expect(/^This application manages .+$/.test(response).true);
+      expect(/^This application manages .+$/.test(response)).true;
     });
 
   });
