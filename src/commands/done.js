@@ -4,7 +4,7 @@
 const fs = require('fs');
 
 // Import the “messages” object from the messages module.
-const messages = module.require('../src/messages').messages;
+const messages = module.require('../messages').messages;
 
 /*
   Declare, define, and export a function that removes a specified item from

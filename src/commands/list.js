@@ -10,7 +10,7 @@ const Table = require('cli-table2');
   Import the “messages” object from the messages module. (With module.require,
   a relative path is relative to this file.)
 */
-const messages = module.require('../src/messages').messages;
+const messages = module.require('../messages').messages;
 
 /*
   Declare, define, and export a function that lists the items in the list
