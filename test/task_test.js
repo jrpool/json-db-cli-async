@@ -38,7 +38,7 @@ describe('task', function() {
       const response = execSync(
         'node task help'
       ).toString();
-      expect(/^This application manages [^]+$/.test(response)).true;
+      expect(/^\n=+\nThis application manages [^]+$/.test(response)).true;
     });
 
   });
