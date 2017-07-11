@@ -16,7 +16,7 @@
     "mocha": ">=3.4.2"
   },
   "scripts": {
-    "lint": "eslint task.js src/ commands/ test/; exit 0",
+    "lint": "eslint task.js src/ src/commands/ test/; exit 0",
     "test": "mocha --compilers js:babel-register test/*.js"
   },
   "bugs": {

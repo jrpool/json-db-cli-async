@@ -16,26 +16,36 @@ const list = module.require('./src/commands/list').list;
 // Import the “messages” object from the messages module.
 const messages = module.require('./src/messages').messages;
 
-// Identify the base of the name of the JSON file containing the list.
-const listFile = 'tasks';
+// Identify the path of the JSON file containing the list.
+const filePath = process.cwd() + '/data/' + 'tasks' + '.json';
 
 // Identify the command-line arguments.
 const args = process.argv.slice(2);
 
-// Define a function that acts on the result.
-const resultAction = message => {console.log(message);};
+// Define a function that acts on a message.
+const handleMessage = (messages, messageKey, symbol, replacement) => {
+  // Initialize the message.
+  let message = messages[messageKey];
+  // If there is a symbol to replace in it:
+  if (symbol) {
+    // Replace all instances of it.
+    message = message.replace(RegExp(symbol, 'g'), replacement);
+  }
+  // Output the message.
+  console.log(message);
+};
 
 // If a command was named:
 if (args[0] !== undefined) {
   // If it was “help”:
   if (args[0] === 'help') {
-    // Display the documentation.
-    console.log(messages.helpTip);
+    // Process the documentation.
+    handleMessage(messages, 'helpTip');
   }
   // Otherwise, if it was “add” and a valid string was specified:
   else if (args[0] === 'add' && args[1] !== undefined && args[1].length) {
     // Execute the addition function.
-    add(listFile, args[1], resultAction);
+    add(filePath, args[1], handleMessage, messages);
   }
   // Otherwise, if it was “done” and a formally valid ID argument was specified:
   else if (
@@ -55,21 +65,21 @@ if (args[0] !== undefined) {
       && itemIDs[1] >= itemIDs[0]
     ) {
       // Execute the removal function.
-      done(listFile, itemIDs, resultAction);
+      done(filePath, itemIDs, handleMessage, messages);
     }
     // Otherwise, i.e. if they are not both valid:
     else {
-      resultAction(messages.commandFail);
+      handleMessage(messages, 'commandFail');
     }
   }
   // Otherwise, if it was “list”:
   else if (args[0] === 'list') {
     // Execute the listing function.
-    list(listFile, resultAction);
+    list(filePath, handleMessage, messages);
   }
   // Otherwise, i.e. if the command was invalid:
   else {
     // Report the error.
-    resultAction(messages.commandFail);
+    handleMessage(messages, 'commandFail');
   }
 }
