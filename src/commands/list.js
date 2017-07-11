@@ -16,7 +16,7 @@ const readFileSync = module.require('../fileIO').readFileSync;
     value of which property is a positive integer, such that no property of
     the object has a key whose integer representation is greater than or
     equal to it.
-  1. handleMessage is a function
+  1. handleMessage is a function.
 */
 exports.list = (filePath, handleMessage, messages) => {
   // Read the file and wait for completion.
@@ -47,5 +47,5 @@ exports.list = (filePath, handleMessage, messages) => {
     )};
     // Handle the table as a message.
     handleMessage(tables, 'table', '«itemIDs.length»', itemIDs.length);
-  };
+  }
 };

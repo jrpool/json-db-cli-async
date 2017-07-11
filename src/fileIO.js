@@ -13,7 +13,7 @@ exports.readFileSync = (
 ) => {
   try {
     // Read the file synchronously and identify its content.
-     const content = fs.readFileSync(filePath, 'utf8');
+    const content = fs.readFileSync(filePath, 'utf8');
     // If the reading produced a string:
     if (typeof content === 'string') {
       // Return it.
@@ -39,7 +39,19 @@ exports.readFileSync = (
   Function that synchronously writes a specified string to a specified file
   as UTF-8 and, if the writing fails, processes a specified message.
 */
-exports.writeFileSync = (filePath, string) => {
-  // Write the string to the file synchronously.
-  fs.writeFileSync(filePath, string, 'utf8');
+exports.writeFileSync = (
+  filePath, string, handleMessage, messages, messageKey, symbol, replacement
+) => {
+  try {
+    // Write the string to the file synchronously.
+    fs.writeFileSync(filePath, string, 'utf8');
+    // Return a success result.
+    return 1;
+  }
+  // If the writing attempt produced an exception:
+  catch(err) {
+    // Handle the error messages.
+    handleMessage(messages, messageKey, symbol, replacement);
+    console.log(err.message);
+  }
 };

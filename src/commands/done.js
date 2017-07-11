@@ -15,12 +15,12 @@ const writeFileSync = fileIO.writeFileSync;
       value of which property is a positive integer, such that no property of
       the object has a key whose integer representation is greater than or
       equal to it.
-    1. handleMessage is a function
+    1. handleMessage is a function.
 */
 exports.done = (filePath, itemIDs, handleMessage, messages) => {
   // Read the file and wait for completion.
   const listString = readFileSync(
-    filePath, handleMessage, messages, 'addReadFail'
+    filePath, handleMessage, messages, 'doneReadFail'
   );
   // If the reading succeeded:
   if (listString !== undefined) {
@@ -40,12 +40,19 @@ exports.done = (filePath, itemIDs, handleMessage, messages) => {
     }
     // If any item was removed:
     if (removed.length) {
-      // Replace the file with a JSON representation of the modified object.
-      writeFileSync(filePath, JSON.stringify(listObject));
-      // For each removed item:
-      for (const item of removed) {
-        // Handle a success message.
-        handleMessage(messages, 'doneReport', '«item»', item);
+      /*
+        Replace the file with a JSON representation of the modified object.
+        If the writing succeeded:
+      */
+      if (writeFileSync(
+        filePath, JSON.stringify(listObject),
+        handleMessage, messages, 'doneWriteFail'
+      )) {
+        // For each removed item:
+        for (const item of removed) {
+          // Handle a success message.
+          handleMessage(messages, 'doneReport', '«item»', item);
+        }
       }
     }
     // Otherwise, i.e. if no item was removed:

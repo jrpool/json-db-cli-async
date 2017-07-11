@@ -16,7 +16,7 @@ const writeFileSync = fileIO.writeFileSync;
       the object has a key whose integer representation is greater than or
       equal to it.
     1. itemText is a nonblank string.
-    2. handleMessage is a function
+    2. handleMessage is a function.
 */
 exports.add = (filePath, itemText, handleMessage, messages) => {
   // Read the file and wait for completion.
@@ -35,9 +35,16 @@ exports.add = (filePath, itemText, handleMessage, messages) => {
       as its value.
     */
     listObject[nextID] = itemText;
-    // Replace the file with a JSON representation of the modified object.
-    writeFileSync(filePath, JSON.stringify(listObject));
-    // Handle the success report.
-    handleMessage(messages, 'addReport', '«addResult»', nextID);
+    /*
+      Replace the file with a JSON representation of the modified object.
+      If the replacement succeeded:
+    */
+    if (writeFileSync(
+      filePath, JSON.stringify(listObject),
+      handleMessage, messages, 'addWriteFail'
+    )) {
+      // Handle the success report.
+      handleMessage(messages, 'addReport', '«addResult»', nextID);
+    }
   }
 };

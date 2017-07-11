@@ -30,16 +30,15 @@ describe('task', function() {
       const response = execSync(
         'node task list'
       ).toString();
-      console.log('The response is ' + response);
       //expect(/^.+ID.+Description.+ tasks?\..*$/m.test(response)).true;
-      expect(/^.+ID.+Description.+tasks?/m.test(response)).true;
+      expect(/^[^]+ID.+Description[^]+\d+ tasks?\.\n$/.test(response)).true;
     });
 
     it('help command gets answer in correct format', function() {
       const response = execSync(
         'node task help'
       ).toString();
-      expect(/^This application manages .+$/m.test(response)).true;
+      expect(/^This application manages [^]+$/.test(response)).true;
     });
 
   });

@@ -13,6 +13,9 @@ const done = module.require('./src/commands/done').done;
 // Import the “list” function from the list module.
 const list = module.require('./src/commands/list').list;
 
+// Import the “reset” function from the reset module.
+const reset = module.require('./src/commands/reset').reset;
+
 // Import the “messages” object from the messages module.
 const messages = module.require('./src/messages').messages;
 
@@ -76,6 +79,11 @@ if (args[0] !== undefined) {
   else if (args[0] === 'list') {
     // Execute the listing function.
     list(filePath, handleMessage, messages);
+  }
+  // Otherwise, if it was “reset”:
+  else if (args[0] === 'reset') {
+    // Execute the reset function.
+    reset(filePath, handleMessage, messages);
   }
   // Otherwise, i.e. if the command was invalid:
   else {
