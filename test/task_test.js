@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 const { execSync } = require('child_process');
 
-let thisID;
-
 describe('task', function() {
 
   beforeEach('factory reset before each test', function() {

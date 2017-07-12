@@ -2,7 +2,7 @@
 
 // Import the fileIO objects from the readFile module.
 const fileIO = module.require('../fileIO');
-const readFileSync = fileIO.readFileSync;
+const readJSONSync = fileIO.readJSONSync;
 const writeFileSync = fileIO.writeFileSync;
 
 /*
@@ -20,31 +20,26 @@ const writeFileSync = fileIO.writeFileSync;
 */
 exports.add = (filePath, itemText, handleMessage, messages) => {
   // Read the file and wait for completion.
-  const listString = readFileSync(
+  const listObject = readJSONSync(
     filePath, handleMessage, messages, 'addReadFail'
   );
-  // If the reading succeeded:
-  if (listString !== undefined) {
-    // Identify its conversion from JSON to an object.
-    const listObject = JSON.parse(listString);
-    // Identify the next ID and then increment it in the object.
-    const nextID = listObject['0'];
-    listObject['0'] = listObject['0'] + 1;
-    /*
-      Add a property to the object with the next ID as its key and itemText
-      as its value.
-    */
-    listObject[nextID] = itemText;
-    /*
-      Replace the file with a JSON representation of the modified object.
-      If the replacement succeeded:
-    */
-    if (writeFileSync(
-      filePath, JSON.stringify(listObject),
-      handleMessage, messages, 'addWriteFail'
-    )) {
-      // Handle the success report.
-      handleMessage(messages, 'addReport', '«addResult»', nextID);
-    }
+  // Identify the next ID and then increment it in the object.
+  const nextID = listObject['nextID'];
+  listObject['nextID'] = listObject['nextID'] + 1;
+  /*
+    Add a property to the object with the next ID as its key and itemText
+    as its value.
+  */
+  listObject[nextID] = itemText;
+  /*
+    Replace the file with a JSON representation of the modified object.
+    If the replacement succeeded:
+  */
+  if (writeFileSync(
+    filePath, JSON.stringify(listObject),
+    handleMessage, messages, 'addWriteFail'
+  )) {
+    // Handle the success report.
+    handleMessage(messages, 'addReport', '«addResult»', nextID);
   }
 };

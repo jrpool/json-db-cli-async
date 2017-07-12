@@ -2,7 +2,7 @@
 
 // Import the fileIO objects from the readFile module.
 const fileIO = module.require('../fileIO');
-const readFileSync = fileIO.readFileSync;
+const readJSONSync = fileIO.readJSONSync;
 const writeFileSync = fileIO.writeFileSync;
 
 /*
@@ -15,31 +15,26 @@ const writeFileSync = fileIO.writeFileSync;
 */
 exports.reset = (filePath, handleMessage, messages) => {
   // Read the file and wait for completion.
-  const listString = readFileSync(
+  const listObject = readJSONSync(
     filePath, handleMessage, messages, 'resetReadFail'
   );
-  // If the reading succeeded:
-  if (listString !== undefined) {
-    // Identify its conversion from JSON to an object.
-    const listObject = JSON.parse(listString);
-    // If the list contains any tasks:
-    if (Object.keys(listObject).length > 1) {
-      // Handle an error message.
-      handleMessage(messages, 'resetDoneFail');
-    }
-    // Otherwise, i.e. if the list contains no tasks:
-    else {
-      /*
-      Replace the file with a JSON representation of the object with the
-      next ID reset to 1. If the replacement succeeded:
-      */
-      if (writeFileSync(
-        filePath, JSON.stringify({'0': 1}),
-        handleMessage, messages, 'resetWriteFail'
-      )) {
-        // Handle the success report.
-        handleMessage(messages, 'resetReport');
-      }
+  // If the list contains any tasks:
+  if (Object.keys(listObject).length > 1) {
+    // Handle an error message.
+    handleMessage(messages, 'resetDoneFail');
+  }
+  // Otherwise, i.e. if the list contains no tasks:
+  else {
+    /*
+    Replace the file with a JSON representation of the object with the
+    next ID reset to 1. If the replacement succeeded:
+    */
+    if (writeFileSync(
+      filePath, JSON.stringify({'nextID': 1}),
+      handleMessage, messages, 'resetWriteFail'
+    )) {
+      // Handle the success report.
+      handleMessage(messages, 'resetReport');
     }
   }
 };

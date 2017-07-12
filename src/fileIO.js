@@ -6,23 +6,18 @@ exports.filePath = fileBase => process.cwd() + '/data/' + fileBase + '.json';
 
 /*
   Function that synchronously reads a specified file as UTF-8 and, if the
-  reading fails, processes a specified message.
+  reading succeeds, returns its conversion from JSON to an object.
 */
-exports.readFileSync = (
+exports.readJSONSync = (
   filePath, handleMessage, messages, messageKey, symbol, replacement
 ) => {
   try {
     // Read the file synchronously and identify its content.
     const content = fs.readFileSync(filePath, 'utf8');
-    // If the reading produced a string:
-    if (typeof content === 'string') {
-      // Return it.
-      return content;
-    }
-    // Otherwise, i.e. if the reading produced a result of another type:
-    else {
-      // Handle the error message.
-      handleMessage(messages, messageKey, symbol, replacement);
+    // If the reading succeeded:
+    if (content !== undefined) {
+      // Identify its conversion from JSON to an object.
+      return JSON.parse(content);
     }
   }
   // If the reading attempt produced an exception:

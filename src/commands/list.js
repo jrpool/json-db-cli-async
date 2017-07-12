@@ -4,7 +4,7 @@
 const Table = require('cli-table2');
 
 // Import the readFileSync from the readFile module.
-const readFileSync = module.require('../fileIO').readFileSync;
+const readJSONSync = module.require('../fileIO').readJSONSync;
 
 /*
   Declare, define, and export a function that lists the items in the list
@@ -20,32 +20,32 @@ const readFileSync = module.require('../fileIO').readFileSync;
 */
 exports.list = (filePath, handleMessage, messages) => {
   // Read the file and wait for completion.
-  const listString = readFileSync(
+  const listObject = readJSONSync(
     filePath, handleMessage, messages, 'listReadFail'
   );
-  // If the reading succeeded:
-  if (listString !== undefined) {
-    // Identify its conversion from JSON to an object.
-    const listObject = JSON.parse(listString);
-    // Create a table with column headers.
-    const table = new Table({
-      head: [messages.listCol0Head, messages.listCol1Head]
-    });
-    // Identify an array of the item IDs as integers.
-    const itemIDs = Object.keys(listObject).slice(1).map(function(currentValue) {
-      return Number.parseInt(currentValue, 10);
-    });
-    // Sort them numerically.
-    itemIDs.sort((a, b) => a - b);
-    // For each of them, add a row to the table.
-    itemIDs.forEach(currentValue => {
-      table.push([currentValue, listObject[currentValue]]);
-    });
-    // Identify an object with the table as the value of a property.
-    const tables = {'table': table.toString() + '\n' + (
-      itemIDs.length === 1 ? messages.listSumReport1 : messages.listSumReport2
-    )};
-    // Handle the table as a message.
-    handleMessage(tables, 'table', '«itemIDs.length»', itemIDs.length);
-  }
+  // Create a table with column headers.
+  const table = new Table({
+    head: [messages.listCol0Head, messages.listCol1Head]
+  });
+  // Identify an array of the item IDs as integers.
+  const itemIDs =
+    Object.keys(listObject)
+      .filter(currentValue => currentValue !== 'nextID')
+      .map(currentValue => Number.parseInt(currentValue, 10));
+  // Sort them numerically.
+  itemIDs.sort((a, b) => a - b);
+  // For each of them, add a row to the table.
+  itemIDs.forEach(currentValue => {
+    table.push([currentValue, listObject[currentValue]]);
+  });
+  // Identify a footer for the table.
+  const footer =
+    itemIDs.length === 1 ? messages.listSumReport1 : messages.listSumReport2;
+  /*
+    Identify an object with the table and its footer template as the value
+    of a property.
+  */
+  const tables = {'table': [table.toString(), footer].join('\n')};
+  // Handle the table and its footer template as a message.
+  handleMessage(tables, 'table', '«itemIDs.length»', itemIDs.length);
 };
