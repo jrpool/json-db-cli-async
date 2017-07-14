@@ -1,9 +1,13 @@
-# json-db-cli
-Application using a JSON file as a database and a CLI to query and modify it
+# json-db-cli-async
+Application using a JSON database and a CLI to query and modify it asynchronously.
 
 ## Project Members
 
 [Jonathan Pool](https://github.com/jrpool)
+
+## Project Technical Advisor
+
+[Trevor Little](https://github.com/bundacia)
 
 ## modules
 
@@ -25,9 +29,11 @@ This application demonstrates the use of a JSON-format text file as a database a
 
 The demonstration takes the form of a to-do list manager. You can use it to add tasks to the list, remove tasks from it (declaring them “done”), and list the tasks in it.
 
-The application fulfills the specifications of the “Command line Todo List With Callbacks” module in Phase 2 of the [Learners Guild][lg] curriculum.
+The application fulfills the requirements of the “Command line Todo List With Callbacks” module in Phase 2 of the [Learners Guild][lg] curriculum, including the requirement that “we're moving from `fs.readFileSync` & `fs.writeFileSync` to `fs.readFile` & `fs.writeFile` requiring you to use callbacks and async code flow control.”
 
-The features are somewhat enhanced in relation to these specifications, as follows:
+This is a modified version of a parallel application, json-db-cli, which relies on `fs.readFileSync` & `fs.writeFileSync` and therefore does not comply with the above requirement: [json-db-cli].
+
+The features are somewhat enhanced in relation to the requirements, as follows:
 
 - The `done` command takes not only an integer argument but instead, optionally, a range argument in the format of 2 integers delimited by a hyphen-minus character (e.g., `15-20`).
 
@@ -35,7 +41,53 @@ The features are somewhat enhanced in relation to these specifications, as follo
 
 - The `done` command produces a report showing not only the description of the completed task, but also its ID. In the event that `done` has a range argument, and multiple tasks in the range have identical descriptions, a report needs to include IDs in order to positively identify the removed tasks.
 
-### Implementation Notes
+- A `reset` command reinitializes the application, once the database contains no tasks, so that the next task added will have ID 1.
+
+### Asynchronization Notes
+
+This project seeks to illustrate a straightforward, minimal adaptation of a synchronous application to an asynchronous one, with no changes in functionality. The tests implemented for `json-db-cli` are all tests of its interface behavior and therefore should apply equally to `json-db-cli-async`.
+
+The application’s `task` module, in this order:
+
+- 1. receives a command from the `node` JavaScript runtime environment.
+
+- 2. determines whether the command is valid.
+
+- 3. if it is invalid, outputs an error message to the console, or, if it is valid, determines which command module should process it.
+
+- 4. instructs that command module to process the command (except for the `help` command, which the `task` module processes itself).
+
+For the most complex commands, namely `add`, `done`, and `reset`, the selected command module then, in this order:
+
+- 5. reads the database file.
+
+- 6. creates a copy of the database in memory as an object.
+
+- 7. analyzes the data in the database copy to determine how to process the command.
+
+- 8. if the command cannot be processed, outputs an error message to the console, or, if it can be processed, modifies the data in the database copy as required by the command.
+
+- 9. converts the modified database to a string.
+
+- 10. writes the string to the database file, replacing its prior content.
+
+- 11. outputs one or more messages to the console, reporting on the results of the performance of the command.
+
+The `list` command is less complex, because it does not change the database file, so processing that command omits steps 8, 9, and 10.
+
+In the json-db-cli application, these steps are sequential, each beginning only after the previous one has ended.
+
+Changing the application to use `fs.readFile` and `fs.writeFile` directly affects steps 5 and 10. All the other steps are intrinsically sequential: They don’t put anything into the JavaScript event loop, so any subsequent step depending on them can rely on them having been executed to completion.
+
+Steps 5 and 10 do put operations into the JavaScript event loop, and they do not stop subsequent steps from being performed before those operations have been performed to completion. But it is clear that steps 6–11 all depend on step 5 being already executed to completion. Similarly, step 11 depends (except with the`list`command) on step 10 having been already executed to completion,because the messages output in step 11 depend on the success or failure of step 10.
+
+In this asynchronous version of the application, callback functions passed to the `fs.readFile` and `fs.writeFile` functions in steps 5 and 10, respectively, are used to ensure the desired order of execution. The callback function gets executed after the reading or writing operation is complete.
+
+The application uses the `fs.readFile` function’s callback function for the additional purpose of capturing the string contained in the database file. The `fs.readFile` function passes that string as an argument to its callback. In the synchronous version of the application, `fs.readFileSync` returns that string instead.
+
+So, for the `add`, `done`, and `reset` commands, the callback function of `fs.readFile` in step 5 performs steps 6, 7, 8, 9, and 10. Step 10 calls `fs.writeFile`, and its callback function performs step 11. For the `list` command, the callback function of `fs.readFile` in step 5 performs steps 6, 7, and 11. Steps 1–4 are not affected by this adaptation.
+
+### Other Implementation Notes
 
 The implementation aims at:
 
@@ -69,13 +121,13 @@ Make that parent directory your working directory, by executing, for example:
 
     `cd ~/Documents/projects`
 
-2. Clone this project’s repository into it, thereby creating the project directory, named `json-db-cli`, by executing:
+2. Clone this project’s repository into it, thereby creating the project directory, named `json-db-cli-async`, by executing:
 
-    `git clone https://github.com/jrpool/json-db-cli.git json-db-cli`
+    `git clone https://github.com/jrpool/json-db-cli.git json-db-cli-async`
 
 2. Make the project directory your working directory by executing:
 
-    `cd json-db-cli`
+    `cd json-db-cli-async`
 
 3. Install required dependencies (you can see them listed in `package.json`) by executing:
 
@@ -91,3 +143,4 @@ To perform the supplied tests, execute `npm test`.
 
 [lg]: https://www.learnersguild.org
 [npm]: https://www.npmjs.com/
+[json-db-cli]: https://github.com/jrpool/json-db-cli

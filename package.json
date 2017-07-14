@@ -1,6 +1,6 @@
 {
-  "name": "json-db-cli",
-  "description": "Application using a JSON file as a database and a CLI to query and modify it",
+  "name": "json-db-cli-async",
+  "description": "Application using a JSON database and a CLI to query and modify it asynchronously",
   "author": "Jonathan Pool",
   "license": "MIT",
   "private": false,
