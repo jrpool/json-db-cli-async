@@ -1,5 +1,11 @@
 // Copy the directories and files in /doc to /, deleting comments.
 
+////////////////////////////////////////////////////////////////////
+
+// WARNING: This module recursively deletes everything in the project.
+
+////////////////////////////////////////////////////////////////////
+
 // Import the “sylar” module.
 const sylar = require('sylar');
 
