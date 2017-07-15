@@ -17,7 +17,7 @@
     "sylar": ">=0.3.0"
   },
   "scripts": {
-    "lint": "eslint task.js src/ src/commands/ test/; exit 0",
+    "lint": "eslint task.js src/ src/commands/ test/ doc/; exit 0",
     "test": "mocha --compilers js:babel-register test/*.js",
     "doc": "node dev/uncomment"
   },

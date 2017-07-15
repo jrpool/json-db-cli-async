@@ -49,7 +49,7 @@ describe('task', function() {
       execSync('node task add \'test reset again\'').toString();
       execSync('node task done 1-2').toString();
       const response = execSync('node task reset').toString();
-      expect(response).equal('Next ID reset to 1\n');
+      expect(response).equal('The list is empty and the next ID is 1.\n');
     });
 
     it('help command gets answer in correct format', function() {
