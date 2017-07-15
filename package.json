@@ -13,8 +13,7 @@
     "babel-register": ">=6.24.1",
     "chai": ">=4.0.2",
     "eslint": "^4.0.0",
-    "mocha": ">=3.4.2",
-    "sylar": ">=0.3.0"
+    "mocha": ">=3.4.2"
   },
   "scripts": {
     "lint": "eslint task.js src/ src/commands/ test/ doc/; exit 0",
