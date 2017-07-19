@@ -43,7 +43,7 @@ const getEditParams = args => {
     // Identify argument 0 as a regular expression.
     try {
       const arg0RegExp = RegExp(args[0], 'mg');
-      // Return that and argument 1 as an array of editing parameters.
+      // Return that and argument 1 as an array of 2 editing parameters.
       return [arg0RegExp, args[1]];
     }
     // If there was an error:
@@ -59,7 +59,7 @@ const getEditParams = args => {
     // If it is “uncomment”:
     if (rule === 'uncomment') {
       // Convert it to 2 editing parameters and return them as an array.
-      return [RegExp('^ *\/\/.+\n|^ *\/\*[^]+?\*\/\n', 'mg'), ''];
+      return [RegExp('^ *\\/\\/.+\n|^ *\\/\\*[^]+?\\*\\/\n', 'mg'), ''];
     }
     // Otherwise, if the rule is unknown:
     else {
@@ -75,8 +75,8 @@ const getEditParams = args => {
 */
 const treeCopy = (fromDir, toDir, nextFunction) => {
   cpr(
-    fromdir,
-    todir,
+    fromDir,
+    toDir,
     {
       // Configure the copier to make a list of the copies’ full absolute paths.
       confirm: true,
@@ -88,7 +88,7 @@ const treeCopy = (fromDir, toDir, nextFunction) => {
       // If there was an error in the copying:
       if (err) {
         // Report it.
-        console.log('[treeCopy]' + error.message);
+        console.log('[treeCopy]' + err.message);
       }
       // Otherwise, i.e. if there was no error:
       else {
@@ -97,9 +97,9 @@ const treeCopy = (fromDir, toDir, nextFunction) => {
         // Execute the next function.
         nextFunction();
       }
-    })
+    }
   );
-}
+};
 
 /**
   Define a function to edit the files in a specified array of pathnames
@@ -134,9 +134,7 @@ const editFiles = (pathnames, editParams) => {
                   Identify the content, edited in accord with the specified
                   rule.
                 */
-                const editedContent = content.replace(
-                  editParams[0], 'mg', editParams[1]
-                );
+                const editedContent = data.replace(...editParams);
                 // Replace the file with it.
                 fs.writeFile(
                   pathname,
@@ -171,7 +169,7 @@ const editFiles = (pathnames, editParams) => {
 // Identify the calling arguments.
 const callArgs = process.argv.slice(2);
 // If they are superficially valid:
-if (areValid (callArgs) {
+if (areValid (callArgs)) {
   // Identify the editing parameters.
   const editParams = getEditParams(callArgs.slice(2));
   // If they are valid:

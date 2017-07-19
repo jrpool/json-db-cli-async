@@ -66,6 +66,9 @@
       "no-const-assign": [
         "error"
       ],
+      "no-control-regex": [
+        "off"
+      ],
       "no-new-object": [
         "error"
       ],
