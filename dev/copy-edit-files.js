@@ -15,7 +15,7 @@ let pathList;
   =========
 */
 
-// Define a function to validate calling arguments.
+/// Define a function to validate calling arguments.
 const areValid = args => {
   // Return whether the calling arguments are superficially valid.
   return (
@@ -29,7 +29,7 @@ const areValid = args => {
   );
 };
 
-/*
+/**
   Define a function to obtain editing parameters from arguments.
   Preconditions:
     0. The count of arguments is 1 or 2.
@@ -69,7 +69,7 @@ const getEditParams = args => {
   }
 };
 
-/*
+/**
   Define a function to cautiously copy the non-hidden items in a directory
   tree and populate the list of destination pathnames.
 */
@@ -101,7 +101,7 @@ const treeCopy = (fromDir, toDir, nextFunction) => {
   );
 }
 
-/*
+/**
   Define a function to edit the files in a specified array of pathnames
   in accord with a specified rule.
 */
