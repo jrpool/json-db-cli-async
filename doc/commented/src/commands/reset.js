@@ -1,11 +1,11 @@
-// Process a command to reset the next ID to 1.
+/// Process a command to reset the next ID to 1.
 
 // Import the fileIO objects from the readFile module.
 const fileIO = module.require('../fileIO');
 const readJSON = fileIO.readJSON;
 const writeFile = fileIO.writeFile;
 
-/*
+/**
   Declare, define, and export a function that resets the next ID in the list
     to 1.
   Preconditions:
@@ -55,8 +55,8 @@ exports.reset = (filePath, handleMessage, messages) => {
         return;
       }
     }
+    /// The list is empty or the file is missing, so a reset is permitted.
     /*
-      The list is empty or the file is missing, so a reset is permitted.
       Replace the file with a JSON representation of the object with the
       next ID reset to 1 and an empty list. When the replacement is complete,
       execute writeCallback, passing the value of its argument to it.

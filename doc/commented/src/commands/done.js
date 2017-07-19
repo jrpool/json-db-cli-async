@@ -1,4 +1,4 @@
-// Process a command to remove items from a list.
+/// Process a command to remove items from a list.
 
 // Import the fileIO objects from the readFile module.
 const fileIO = module.require('../fileIO');
@@ -6,7 +6,7 @@ const readJSON = fileIO.readJSON;
 const writeFile = fileIO.writeFile;
 const parseJSON = fileIO.parseJSON;
 
-/*
+/**
   Declare, define, and export a function that removes a the items in a
   specified range of IDs from the list in a specified JSON file.
   Preconditions:

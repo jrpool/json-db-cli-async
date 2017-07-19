@@ -1,4 +1,4 @@
-// Process a command to list the items in a list.
+/// Process a command to list the items in a list.
 
 // Import readJSON from the fileIO module.
 const fileIO = module.require('../fileIO');
@@ -8,7 +8,7 @@ const parseJSON = fileIO.parseJSON;
 // Import the “cli-table2” module.
 const Table = require('cli-table2');
 
-/*
+/**
   Declare, define, and export a function that outputs the items in the list
     in a specified JSON file as a table.
   Preconditions:

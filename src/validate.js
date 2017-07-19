@@ -1,12 +1,16 @@
-// Functions testing satisfaction of commonly required argument properties.
+/// Functions testing satisfaction of commonly required argument properties.
 
-//// NONBLANK STRING ////
+/// NONBLANK STRING
 
 exports.isNonblankString = string =>
   string !== undefined && typeof string === 'string' && string.length;
 
-//// BOUNDED INTEGER RANGE ////
+/** BOUNDED INTEGER RANGE
 
+  Function that returns whether the specified arguments are a valid
+  specification of a range of integers, either unbounded or inclusively
+  bounded on each end.
+*/
 exports.areIntRangeStrings = (string0, string1, min, max) => {
   if (string0 === undefined || string1 === undefined) {
     return false;

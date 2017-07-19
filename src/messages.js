@@ -1,4 +1,4 @@
-// Messages in English.
+/// Messages in English.
 exports.messages = {
   'addReadFail': 'The addition was unsuccessful because of a reading error.',
   'addWriteFail': 'The addition was unsuccessful because of a writing error.',

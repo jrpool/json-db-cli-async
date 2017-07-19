@@ -1,7 +1,7 @@
-/*
+/**
   Manager of a list stored in a JSON-format file. Performs additions to it,
-  deletions from it, and disclosures of it in response to command-line
-  arguments. Called by Node.js.
+  deletions from it, and disclosures and resets of it in response to
+  command-line arguments. Called by Node.js.
 */
 
 //////// IMPORTS ////////
