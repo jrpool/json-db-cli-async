@@ -25,7 +25,7 @@ const areValid = args => {
     && args[0][0] === '/' && args[1][0] === '/'
     && !args[1].startsWith(args[0])
     && !args[0].startsWith(args[1])
-    && (args.length === 3 || /^\/.+\/$/.test(args[2])
+    && (args.length === 3 || /^\/.+\/$/.test(args[2]))
   );
 };
 
