@@ -59,7 +59,6 @@ typings/
 
 # Files specific to OS X
 .DS_Store
-dev/suspended/
 
 # Developer notes
 private/
