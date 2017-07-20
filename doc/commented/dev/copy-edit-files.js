@@ -30,6 +30,14 @@ const areValid = args => {
 };
 
 /**
+  Define a function to report an error in a specified context caused by a
+  specified pathname.
+*/
+const reportError = (err, context, pathname) => {
+  console.log('[' + context + '] (' + pathname + '): ' + err.message);
+};
+
+/**
   Define a function to obtain editing parameters from arguments.
   Preconditions:
     0. The count of arguments is 1 or 2.
@@ -49,7 +57,7 @@ const getEditParams = args => {
     // If there was an error:
     catch (err) {
       // Report it.
-      console.log('[getEditParams]' + err.message);
+      reportError(err, 'getEditParams', args[0]);
     }
   }
   // Otherwise, if there is 1 calling argument:
@@ -88,7 +96,7 @@ const treeCopy = (fromDir, toDir, nextFunction) => {
       // If there was an error in the copying:
       if (err) {
         // Report it.
-        console.log('[treeCopy]' + err.message);
+        reportError(err, 'treeCopy', fromDir);
       }
       // Otherwise, i.e. if there was no error:
       else {
@@ -99,6 +107,17 @@ const treeCopy = (fromDir, toDir, nextFunction) => {
       }
     }
   );
+};
+
+/**
+  Define a function to return a function that reports an error in a
+  specified context caused by a specified pathname.
+*/
+const reportErrorFn = (context, pathname) => {
+  // Return the function.
+  return err => {
+    reportError(err, context, pathname);
+  };
 };
 
 /**
@@ -124,9 +143,7 @@ const editFiles = (pathnames, editParams) => {
               // If there was an error identifying the content:
               if (err) {
                 // Report it.
-                console.log(
-                  '[editFiles/readFile] (' + pathname + '): ' + err.message
-                );
+                reportError(err, 'editFiles/readFile', pathname);
               }
               // Otherwise, i.e. if there was no error:
               else {
@@ -140,17 +157,11 @@ const editFiles = (pathnames, editParams) => {
                   pathname,
                   editedContent,
                   'utf8',
-                  // When the replacement is complete:
-                  err => {
-                    // If there was an error in the replacement:
-                    if (err) {
-                      // Report it.
-                      console.log(
-                        '[editFiles/writeFile] (' + pathname + '): '
-                        + err.message
-                      );
-                    }
-                  }
+                  /*
+                    When the replacement is complete, if there was an error
+                    in the replacement, report it.
+                  */
+                  reportErrorFn('editFiles/writeFile', pathname)
                 );
               }
             }
