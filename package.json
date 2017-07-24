@@ -21,12 +21,12 @@
     "test": "mocha --compilers js:babel-register test/*.js"
   },
   "bugs": {
-    "url": "https://github.com/jrpool/json-db-cli.git/issues"
+    "url": "https://github.com/jrpool/json-db-cli-async.git/issues"
   },
-  "homepage": "https://github.com/jrpool/json-db-cli.git/index.html",
+  "homepage": "https://github.com/jrpool/json-db-cli-async.git/index.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jrpool/json-db-cli.git"
+    "url": "https://github.com/jrpool/json-db-cli-async.git"
   },
   "babel": {
     "presets": [
